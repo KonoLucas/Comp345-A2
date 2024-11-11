@@ -3,4 +3,4 @@ using std::string;
 
 void testCommandProcessor();
 void testCommandProcessorConsole();
-void testCommandProcessorFile(string fileName);
+void testCommandProcessorFile(std::string filename);

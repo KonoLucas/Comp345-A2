@@ -38,7 +38,7 @@ void testCommandProcessorConsole() {
 }
 
 // Test function for command processing from a file input
-void testCommandProcessorFile(const string& fileName) {
+void testCommandProcessorFile(string fileName) {
     cout << "---------------File Input Test----------------" << endl;
     
     GameEngine* gameEngine = new GameEngine();
@@ -79,7 +79,7 @@ int main() {
         // std::cout << "Enter the file name for commands: ";
         // std::cin >> fileName;
         std::cout << "\n--- Running Test Command Processor with File Input ---\n";
-        testCommandProcessorFile("Command1.txt");
+        testCommandProcessorFile(std::string("Command1.txt"));
     }
     else {
         std::cout << "Invalid choice. \n";
