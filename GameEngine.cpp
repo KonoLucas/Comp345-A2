@@ -13,8 +13,8 @@
 #include "CommandProcessor.h"
 
 using namespace std;
-///
-//g++ GameEngine.cpp GameEngineDriver.cpp Cards.cpp Map.cpp Orders.cpp Player.cpp LoggingObserverDriver.cpp CommandProcessor.cpp
+///workspaces/Comp345-A2/CommandProcessingDriver.cpp
+//g++ GameEngine.cpp CommandProcessingDriver.cpp Cards.cpp Map.cpp Orders.cpp Player.cpp LoggingObserverDriver.cpp CommandProcessor.cpp
 
 /*-------------------- Phases for Part 3 -------------------------*/
 extern const std::string START = "start";

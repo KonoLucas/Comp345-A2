@@ -15,7 +15,6 @@ void testCommandProcessor() {
     gameEngine=gameEngine.startupPhase();  // This should add players and distribute territories
     
     while(true){
-       
         gameEngine.commandProcessor->getCommand();
 
     }
