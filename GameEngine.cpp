@@ -40,7 +40,8 @@ void GameEngine::setMap(Map *map){
 
 /*--------------------------------------------------------  Phases for Part 2 -------------------------------------------------------------*/
 //By Lucas
-GameEngine GameEngine::startupPhase(){
+// return type change !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+GameEngine* GameEngine::startupPhase(){
 
 GameEngine *game =  new GameEngine();
 printWelcomeMessage();
@@ -48,7 +49,7 @@ CommandProcessor *commandProcessor= new CommandProcessor();
 commandProcessor->setGameEngine(game);
 game->setProcessor(commandProcessor);
 game->transition(START);
-return *game;
+return game;
 }
 
 // cout << "Please select the name of the map you want to load: ";

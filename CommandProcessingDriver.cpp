@@ -9,13 +9,13 @@ using std::endl;
 //{"start", "loadmap", "validatemap", "addplayer", "assignReinforcement", "issueOrders", "executeOrders", "win"};
 // Test function to simulate command processing from user input
 void testCommandProcessor() {
-    GameEngine gameEngine;
+    GameEngine* gameEngine=new GameEngine;
 
     // Setup players and territories
-    gameEngine=gameEngine.startupPhase();  // This should add players and distribute territories
+    gameEngine = gameEngine->startupPhase();  // This should add players and distribute territories
     
     while(true){
-        gameEngine.commandProcessor->getCommand();
+        gameEngine->commandProcessor->getCommand();
 
     }
    
@@ -25,15 +25,14 @@ void testCommandProcessor() {
 // Test function to process commands via console input
 void testCommandProcessorConsole() {
     cout << "Console Input Test" << endl;
-    GameEngine gameEngine;
+   GameEngine* gameEngine=new GameEngine;
 
     // Setup players and territories
-    gameEngine=gameEngine.startupPhase();  // This should add players and distribute territories
+    gameEngine = gameEngine->startupPhase();  // This should add players and distribute territories
     
     while(true){
        
-        gameEngine.commandProcessor->getCommand();
-
+        gameEngine->commandProcessor->getCommand();
     }
     
 }
@@ -45,7 +44,7 @@ void testCommandProcessorFile(const string& fileName) {
     GameEngine* gameEngine = new GameEngine();
     FileCommandProcessorAdapter* processor = new FileCommandProcessorAdapter(gameEngine, fileName);
 
-    *gameEngine=gameEngine->startupPhase();  // This should add players and distribute territories
+    gameEngine = gameEngine->startupPhase();  // This should add players and distribute territories
     gameEngine->setProcessor(processor);
     while(true){
        
@@ -76,11 +75,11 @@ int main() {
         testCommandProcessorConsole();
     }
     else if (choice == 3) {
-        std::string fileName;
-        std::cout << "Enter the file name for commands: ";
-        std::cin >> fileName;
+        // std::string fileName;
+        // std::cout << "Enter the file name for commands: ";
+        // std::cin >> fileName;
         std::cout << "\n--- Running Test Command Processor with File Input ---\n";
-        //testCommandProcessorFile("Command1.txt");
+        testCommandProcessorFile("Command1.txt");
     }
     else {
         std::cout << "Invalid choice. \n";

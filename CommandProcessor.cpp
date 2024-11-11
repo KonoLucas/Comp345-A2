@@ -33,7 +33,7 @@ Command &Command::operator=(const Command &other)
 }
 
 // Getter for the command string
-string Command::getCommand() const
+std::string Command::getCommandString() const
 {
     return command;
 }
@@ -113,7 +113,7 @@ void CommandProcessor::saveCommand(Command *cmd)
 }
 
 // Retrieves a command from input, validates it, and saves it if valid
-Command *CommandProcessor::getCommand()
+void CommandProcessor::getCommand()
 {
     string cmdStr = readCommand();
     Command *cmd = new Command(cmdStr);
@@ -121,7 +121,7 @@ Command *CommandProcessor::getCommand()
     {
         // Parse the command and argument
         
-        std::string fullCommand = cmd->getCommand();
+        std::string fullCommand = cmd->getCommandString();
         //fullCommand = fullCommand.substr(fullCommand.find_first_not_of(' '), fullCommand.find_last_not_of(' ') - fullCommand.find_first_not_of(' ') + 1);
         std::istringstream iss(fullCommand);
         std::string command;
@@ -168,13 +168,12 @@ Command *CommandProcessor::getCommand()
     }
 
     saveCommand(cmd); // Save the command to the list
-    return cmd;
 }
 
 // Validates if the command matches a list of known valid commands
 bool CommandProcessor::validateCommand(const Command *cmd) const
 {   
-    std::string fullCommand = cmd->getCommand();
+    std::string fullCommand = cmd->getCommandString();
     std::istringstream iss(fullCommand);
     std::string command;
     std::string argument;
@@ -216,7 +215,7 @@ bool CommandProcessor::validateCommand(const Command *cmd) const
 
 // Handler for loadmap command - prompts the user for map name and loads it
 void CommandProcessor::handleloadmapCommand(Command* command){
-    std::istringstream iss(command->getCommand());
+    std::istringstream iss(command->getCommandString());
     std::string commandstring;
     std::string argument;
 
@@ -249,7 +248,7 @@ void CommandProcessor::handleloadmapCommand(Command* command){
 
 void CommandProcessor::handleValidateMapCommand(Command* command) {
     // Parse the command to extract information for potential logging or debugging
-    std::istringstream iss(command->getCommand()); //---------------
+    std::istringstream iss(command->getCommandString()); //---------------
 
     cout << "Validating the map...\n";
           
@@ -274,7 +273,7 @@ void CommandProcessor::handleValidateMapCommand(Command* command) {
 
 void CommandProcessor::handleAddPlayerCommand(Command* command) {
     // Parse the command to extract the player name argument
-    std::istringstream iss(command->getCommand());
+    std::istringstream iss(command->getCommandString());
     std::string commandstring;
     std::string argument;
 
