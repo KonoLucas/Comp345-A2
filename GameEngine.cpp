@@ -542,6 +542,8 @@ void GameEngine::mainGameLoop() {
 //         }
 //     }
 // }
+
+
 void GameEngine::removeEliminatedPlayers() {
     auto it = playerList.begin();
     while (it != playerList.end()) {

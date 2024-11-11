@@ -280,6 +280,22 @@ void CommandProcessor::handleAddPlayerCommand(Command* command){
                  
 }
 
+void CommandProcessor::handleQuitCommand(Command* command) {
+    if (gameEngine->getCurrentState() == WIN) {
+        cout << "Exiting the game." << endl;
+        exit(0);  
+    } else {
+
+        cout << "Quit command is only valid in the WIN state." << endl;
+    }
+}
+
+void CommandProcessor::handleReplayCommand(Command* command) {
+    cout << "Replay command passed." << endl;
+}
+
+
+
 void CommandProcessor::handleGameStartCommand(Command* command){
      gameEngine->gamestart(*gameEngine);
      gameEngine->mainGameLoop();
