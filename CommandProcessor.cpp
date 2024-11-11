@@ -243,56 +243,94 @@ void CommandProcessor::handleloadmapCommand(Command* command){
         command->setEffect(effect);
     } else {
         cout << "Failed to load the map. Please try again.\n";
+        command->setEffect("Failed loading the map.");//---------------
     }
 }
 
-void CommandProcessor::handleValidateMapCommand(Command* Command){
-        cout << "Validating the map...\n";
+void CommandProcessor::handleValidateMapCommand(Command* command) {
+    // Parse the command to extract information for potential logging or debugging
+    std::istringstream iss(command->getCommand()); //---------------
+
+    cout << "Validating the map...\n";
           
-        bool mapValidated = (gameEngine->selectedMap->validate()); 
+    // Call the validate function on the selected map to check if it meets the required criteria
+    bool mapValidated = (gameEngine->selectedMap->validate()); 
 
-        if (mapValidated) {
-            cout << "Map validated successfully!\n";
-            gameEngine->transition(MAPVALIDATED);
-        } else {
-            cout << "Map validation failed. Please load a valid map.\n";
-        }
+    if (mapValidated) {
+        // If the map is validated successfully, transition the game state to MAPVALIDATED
+        cout << "Map validated successfully!\n";
+        gameEngine->transition(MAPVALIDATED);
 
+        std::string effect = "Map validation successful!"; //---------------
+        command->setEffect(effect);                        //---------------
+
+    } else {
+        cout << "Map validation failed. Please load a valid map.\n";
+        std::string effect = "Map validation failed. Please load a valid map."; //---------------
+        command->setEffect(effect); //---------------
+    }
 }
 
-void CommandProcessor::handleAddPlayerCommand(Command* command){
+
+void CommandProcessor::handleAddPlayerCommand(Command* command) {
+    // Parse the command to extract the player name argument
     std::istringstream iss(command->getCommand());
     std::string commandstring;
     std::string argument;
 
+    // Extract command and argument from the input string
     iss >> commandstring;
     std::getline(iss, argument);
-    std::string playerName=argument;
+    std::string playerName = argument;
 
     if (!argument.empty()) {
-        // remove spaces at the beginning of the argument
+        // Remove leading spaces from the argument to get the exact player name
         argument = argument.substr(argument.find_first_not_of(' '));
     }
 
+    // Add a new player with the given name to the game engine's player list
     gameEngine->playerList.push_back(new Player(playerName));
+
     gameEngine->transition(PLAYERSADDED);
+
+    // Display the total number of players in the game
+    cout << "Total number of players: " << gameEngine->playerList.size() << endl;
     
-    cout << "Total number of play\n" << gameEngine->playerList.size()<< endl;
-         for(Player* player : gameEngine->playerList){
-            cout << "Player: " << player->getName() << " \n";
-          }   
-                 
+    // Iterate over the player list to display each player's name
+    for (Player* player : gameEngine->playerList) {
+        cout << "Player: " << player->getName() << " \n";
+    }
+
+    // -----------------------------------------------------
+    std::string effect = "Player " + playerName + " added successfully. Total players: " + std::to_string(gameEngine->playerList.size());
+    command->setEffect(effect); 
+    // -----------------------------------------------------    
 }
+
 
 void CommandProcessor::handleQuitCommand(Command* command) {
+    // Check if the current state of the game engine is WIN
     if (gameEngine->getCurrentState() == WIN) {
+        // Output message indicating game is exiting
         cout << "Exiting the game." << endl;
+
+        // -----------------------------------------------------
+        std::string effect = "Game exited successfully.";
+        command->setEffect(effect); // Store effect in the command for logging or further use
+        // -----------------------------------------------------
+        // Exit the program as the game is in the WIN state
         exit(0);  
     } else {
-
+        // Output message indicating that quit command is not allowed in the current state
         cout << "Quit command is only valid in the WIN state." << endl;
+
+        // -----------------------------------------------------
+        std::string effect = "Quit command failed. Current state: " + gameEngine->getCurrentState();
+        command->setEffect(effect); // Store the failure effect in the command
+        // -----------------------------------------------------
     }
 }
+
 
 void CommandProcessor::handleReplayCommand(Command* command) {
     cout << "Replay command passed." << endl;
