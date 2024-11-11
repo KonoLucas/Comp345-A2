@@ -237,7 +237,8 @@ void CommandProcessor::handleloadmapCommand(Command* command){
     if (!result) {
         cout << "Map " << argument << " loaded successfully!\n";
         gameEngine->transition(MAPLODADED);
-        std::string effect="map loading successfully! Map name:";
+        
+        std::string effect="Map loading successfully! Map name:";
         effect.append(argument);
         command->setEffect(effect);
     } else {
