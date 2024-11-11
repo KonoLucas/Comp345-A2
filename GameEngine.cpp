@@ -48,11 +48,6 @@ CommandProcessor *commandProcessor= new CommandProcessor();
 commandProcessor->setGameEngine(game);
 game->setProcessor(commandProcessor);
 game->transition(START);
-
-
-while(game->getCurrentState()!=GAMESTART){
-    *game->commandProcessor->getCommand();
-}
 return *game;
 }
 
@@ -221,6 +216,8 @@ void GameEngine::gamestart( GameEngine &game){
 
     //switch the game to the play phase
     game.transition(PLAY);
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     game.mainGameLoop();
 
 }
 
