@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <map>
 #include "Map.h"
 #include "Player.h"
 #include "Orders.h"
