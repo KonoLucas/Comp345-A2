@@ -42,16 +42,15 @@ void testCommandProcessorFile(string fileName) {
     cout << "---------------File Input Test----------------" << endl;
     
     GameEngine* gameEngine = new GameEngine();
-    FileCommandProcessorAdapter* processor = new FileCommandProcessorAdapter(gameEngine, fileName);
-
     gameEngine = gameEngine->startupPhase();  // This should add players and distribute territories
-    gameEngine->setProcessor(processor);
+    FileCommandProcessorAdapter* fileAdapter = new FileCommandProcessorAdapter(gameEngine, fileName);
+    gameEngine->setProcessor(fileAdapter);
     while(true){
-       
+        std::string input;
+        cin>>input;
         gameEngine->commandProcessor->getCommand();
 
     }
-
     
 }
 

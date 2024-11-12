@@ -406,8 +406,7 @@ string FileLineReader::readLine()
 // Implementation of FileCommandProcessorAdapter class
 
 // Constructor that initializes the CommandProcessor with a file reader for reading commands from a file
-FileCommandProcessorAdapter::FileCommandProcessorAdapter(GameEngine *engine, const std::string &fileName)
-    : CommandProcessor(engine), fileReader(new FileLineReader(fileName)) {}
+FileCommandProcessorAdapter::FileCommandProcessorAdapter(GameEngine *engine, const std::string &fileName): CommandProcessor(engine), fileReader(new FileLineReader(fileName)) {}
 
 // Destructor to clean up the file reader
 FileCommandProcessorAdapter::~FileCommandProcessorAdapter()
