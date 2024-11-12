@@ -10,7 +10,6 @@
 #include "Orders.h"
 #include "Cards.h"
 #include "Player.h"
-#include "LoggingObserver.cpp"
 
 
 using namespace std;
@@ -126,7 +125,7 @@ bool deployOrder::validate() const {
         else {
             return true;
         }
-
+    // return true;
     }
     else {
         return false;
@@ -135,28 +134,16 @@ bool deployOrder::validate() const {
 
 void deployOrder::execute() {
     if (validate()) {
+        std::cout<<"\nNow running deploy order\n";
         std::cout<<"Origin armies in target territory:"<<this->target->getArmies()<<"\n";
        this->player->setNumberOfReinforcement(this->player->getNumberOfReinforcement() - this->armies);
         this->target->setArmies(this->target->getArmies() + this->armies);
-        this->player->setNumberOfReinforcement(this->player->getNumberOfReinforcement()-this->armies);
+        // this->player->setNumberOfReinforcement(this->player->getNumberOfReinforcement()-this->armies);
         std::cout<<"Have taken "<<this->armies<<" from reinforcement pool to the target territory\n";
         std::cout<<"After the operation:"<<this->target->getArmies()<<"\n";
 
     }
 }
-// void deployOrder::execute() {
-//     if (validate()) {
-//         std::cout << "Origin armies in target territory:" << this->target->getArmies() << "\n";
-        
-//         int newReinforcementCount = this->player->getNumberOfReinforcement() - this->armies;
-//         this->player->setNumberOfReinforcement(newReinforcementCount);  // Only reduce once
-
-//         this->target->setArmies(this->target->getArmies() + this->armies);
-        
-//         std::cout << "Have taken " << this->armies << " from reinforcement pool to the target territory\n";
-//         std::cout << "After the operation:" << this->target->getArmies() << "\n";
-//     }
-// } //Add for testing P3
 
 advanceOrder::advanceOrder(int armies, Territory* source,Territory* target, Player* player) {
     *name = "Advance Order";
@@ -196,6 +183,8 @@ bool advanceOrder::validate() const {
 
 void advanceOrder::execute() {
     if (validate()) {
+        std::cout<<"\nNow running advance order\n";
+
         *executed = true;
 
         //source and target belong to the same player
@@ -232,6 +221,7 @@ void advanceOrder::execute() {
                 this->target->setArmies(source->getArmies());
                 this->target->getOwnerPlayer()->removeTerritory(target);
                 this->target->setPlayer(player);
+
                 this->player->addTerritory(target);
                 this->winOrNot=true;
 
@@ -304,6 +294,8 @@ bool bombOrder::validate() const {
 
 void bombOrder::execute() {
     if (validate()) {
+        std::cout<<"\nNow running bomb order\n";
+
         *executed = true;
         std::cout<<"\nTarget territory before bomb:"<<this->target->getArmies();
 
@@ -346,6 +338,8 @@ bool blockadeOrder::validate() const {
 
 void blockadeOrder::execute() {
     if (validate()) {
+        std::cout<<"\nNow running blockade order\n";
+
         *executed = true;
         std::cout<<"Running the blockade order,\n";
         std::cout<<"The armies number:"<<this->target->getArmies()<<"\n";
@@ -389,9 +383,10 @@ bool airliftOrder::validate() const {
 }
 
 void airliftOrder::execute() {
-    std::cout<<" order airlift execute\n";
 
     if (validate()) {
+        std::cout<<"\nNow running airlift order\n";
+
         *executed = true;
         std::cout<<"\nSource territory armies:"<<this->source->getArmies();
         std::cout<<"\nTarget territory armies:"<<this->target->getArmies();
@@ -428,6 +423,8 @@ bool negotiateOrder::validate() const {
 
 void negotiateOrder::execute() {
     if (validate()) {
+        std::cout<<"\nNow running negotiate order\n";
+
         *executed = true;
         this->player->setNegotiate(true);
         this->enemy->setNegotiate(true);
